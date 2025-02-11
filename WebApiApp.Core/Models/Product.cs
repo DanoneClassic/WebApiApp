@@ -13,25 +13,11 @@ namespace WebApiApp.Models
             Price = price;
             Description = description;
         }
-
-        [Key]
-        [Required]
         public Guid Id { get; }
-
-        [Required]
-        [MaxLength(100)]
         public string Name { get;}
-
-        [Required]
-        [Url]
         public string ImgUri { get; }
-
-        [Required]
-        [Range(0.01, double.MaxValue, ErrorMessage = "Price must be greater than 0")]
         public decimal Price { get;}
-
         public string Description { get; }
-
 
         public static (Product Product, String error)  Create(string name, string imgUri, decimal price, string description)
         {

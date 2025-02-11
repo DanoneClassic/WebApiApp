@@ -1,4 +1,6 @@
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using WebApiApp.Domain.Entities;
 using WebApiApp.Infrastructure.Data;
@@ -14,9 +16,13 @@ namespace WebApiApp.Infrastructure.Repositories
             _context = context;
         }
 
-        public async Task<IEnumerable<Product>> GetAllAsync()
+        public async Task<IEnumerable<Product>> GetAllAsync(int page = 1, int pageSize = 10)
         {
-            return await _context.Products.ToListAsync();
+            // Pagination logic
+            return await _context.Products
+                .Skip((page - 1) * pageSize)
+                .Take(pageSize)
+                .ToListAsync();
         }
 
         public async Task<Product> GetByIdAsync(int id)
